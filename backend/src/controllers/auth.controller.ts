@@ -1,11 +1,11 @@
-import { Request, Response } from 'express';
+import { RequestHandler } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { pool } from '../db';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecretkey';
 
-export const registerUser = async (req: Request, res: Response) => {
+export const registerUser:RequestHandler = async (req, res, next) => {
   try {
     const { username, password } = req.body;
 
@@ -26,7 +26,7 @@ export const registerUser = async (req: Request, res: Response) => {
   }
 };
 
-export const loginUser = async (req: Request, res: Response) => {
+export const loginUser: RequestHandler = async (req, res, next): Promise<void> =>{
   try {
     const { username, password } = req.body;
 
@@ -36,11 +36,17 @@ export const loginUser = async (req: Request, res: Response) => {
       [username]
     );
     const user = userResult.rows[0];
-    if (!user) return res.status(401).json({ message: 'Invalid credentials' });
+    if (!user){ 
+      res.status(401).json({ message: 'Invalid credentials' })
+      return;
+    };
 
     // compare password
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(401).json({ message: 'Invalid credentials' });
+    if (!isMatch) {
+      res.status(401).json({ message: 'Invalid credentials' })
+      return;
+      } ;
 
     // create token
     const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '1h' });
