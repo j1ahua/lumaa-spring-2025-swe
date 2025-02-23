@@ -5,7 +5,7 @@
 ---
 
 ## Overview
-**expected salary per month: $2000**
+**expected salary per month: $2000**<br\>
 This is a simple task management application built with:
    - Backend: Node.js, Express, Typescript, PostgreSQL
    - Frontend: React, Typescript
