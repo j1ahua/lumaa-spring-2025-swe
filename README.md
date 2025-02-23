@@ -5,17 +5,50 @@
 ---
 
 ## Overview
+**expected salary per mont: $2000
 This is a simple task management application built with:
    - Backend: Node.js, Express, Typescript, PostgreSQL
    - Frontend: React, Typescript
 1. Setting Up The Database:
-create a .env file in the **backend** folder with the following variable:
+create a `.env` file in the **backend** folder with the following variable:
 ````
 DATABASE_URL=postgres://<USER>:<PASSWORD>@<HOST>:<PORT>/<DB_NAME>
 JWT_SECRET=yourSuperSecretKey 
 ````
-Create a “Task Management” application with **React + TypeScript** (frontend), **Node.js** (or **Nest.js**) (backend), and **PostgreSQL** (database). The application should:
+   - `DATABASE_URL` – points to your PostgreSQL instance.
+   - Example (for local dev): `postgres://postgres:password@localhost:5432/task_manager_db`
+Manually create the requried tables:
+````
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(255) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL
+);
 
+CREATE TABLE tasks (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  description TEXT,
+  "isComplete" BOOLEAN DEFAULT FALSE,
+  "userId" INTEGER REFERENCES users(id) ON DELETE CASCADE
+);
+````
+OR Ensure your code in `db/index.ts` is set up to run the `CREATE TABLE IF NOT EXISTS` queries. Then simply start the backend (see below) and it will create the tables if they do not exist.
+
+2. Running the Backend:
+install dependencies:
+   - from the **backend** folder,
+     `npm install`
+     `npm run dev`
+3. Running the Frontend:
+install dependencies:
+   - from the **backend** folder,
+     `npm install`
+     `npm run dev`
+Visit http://localhost:5173 to see the app.
+
+
+Application Functions:
 1. **Register** (sign up) and **Log in** (sign in) users.
 2. After logging in, allow users to:
    - **View a list of tasks**.
