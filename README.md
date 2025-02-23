@@ -5,7 +5,15 @@
 ---
 
 ## Overview
-
+This is a simple task management application built with:
+   - Backend: Node.js, Express, Typescript, PostgreSQL
+   - Frontend: React, Typescript
+1. Setting Up The Database:
+create a .env file in the **backend** folder with the following variable:
+````
+DATABASE_URL=postgres://<USER>:<PASSWORD>@<HOST>:<PORT>/<DB_NAME>
+JWT_SECRET=yourSuperSecretKey 
+````
 Create a “Task Management” application with **React + TypeScript** (frontend), **Node.js** (or **Nest.js**) (backend), and **PostgreSQL** (database). The application should:
 
 1. **Register** (sign up) and **Log in** (sign in) users.
