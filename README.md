@@ -16,7 +16,7 @@ DATABASE_URL=postgres://<USER>:<PASSWORD>@<HOST>:<PORT>/<DB_NAME>
 JWT_SECRET=yourSuperSecretKey 
 ````
    - `DATABASE_URL` – points to your PostgreSQL instance.
-   - Example (for local dev): `postgres://postgres:password@localhost:5432/task_manager_db`
+   - Example (for local dev): `postgres://postgres:password@localhost:5432/task_manager_db`<br>
 Manually create the requried tables:
 ````
 CREATE TABLE users (
